@@ -30,6 +30,14 @@ enviando requisições pré-definidas para os projetos e conferindo seus retorno
 - Obter novamente a raiz e confirmar que que o temo de obtenção foi pelo ao menos metade da obtenção anterior (20 pontos)
 - Conferir que os valores retornados são os mesmos da primeira requisição 
 
+## Apresentação e resultados
+
+![Exemplo bem diferente 😅](https://flaviocopes.com/jest/passing-tests.png "Exemplo bem diferente 😅")
+
+- Para cada teste acima, apresentar uma linha, com um ✅ ou 🚩 para indicar se deu resultado positivo ou não
+- Apresentar no final da página o somatório de pontos totais do candidato
+
+
 # Repositório
 
 - Crie um branch pra você e implemente sua solução
