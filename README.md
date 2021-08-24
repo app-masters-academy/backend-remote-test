@@ -5,6 +5,12 @@ O objetivo deste projeto é ser um código com casos de testes (asserts), que va
 # O projeto
 
 - Será necessário criar projeto Node com Jest, que a cada vez que for rodado, receberá uma url, que será o endereço do projeto online a ser testado; Exemplo: `yarn test --url:http://18.228.136.80:3100/` `process.argv`
+- Executaremos cada um dos testes via terminal: 
+```
+yarn test --url:http://apiA:3100/
+yarn test --url:http://apiB:3100/
+yarn test --url:http://apiC:3100/
+```
 - Será necessário que este projeto faça chamadas http usando axios;
 - Realizaremos então uma chamada da api `backend-remote-test` de cada projeto, para saber quais projetos funcionaram ou não;
 - O projeto deverá testar cada requisito (explicado abaixo) e apresentar um somatório de "pontos"
@@ -12,6 +18,7 @@ O objetivo deste projeto é ser um código com casos de testes (asserts), que va
 
 ## Para cada projeto
 
+- Apresentar um console.log("Url sendo testada", url)
 - Registrar o tempo que levará a primeira requisição abaixo, e salvar os dados retonados localmente
 - Enviar get na raiz e confirmar que: foi retornado status 200, retornado um json, retornado um array, tenha pelo ao menos 20 itens, o primeiro item tenha 'appId` e `name` (10 pontos)
 - Enviar get na rota /nao-exista e confirmar que: é retornado status 404 (10 pontos) (estou validando)
