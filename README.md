@@ -4,7 +4,7 @@ O objetivo deste projeto é ser um código com casos de testes (asserts), que va
 
 # O projeto
 
-- Será necessário criar projeto Node, com apenas uma rota GET e parâmetro `/?url=...`, onde url será a o endereço do projeto online a ser testado; Exemplo: `http://localhost/?url=https://projeto-appmaster.herokuapp.com`
+- Será necessário criar projeto Node com Jest, que a cada vez que for rodado, receberá uma url, que será o endereço do projeto online a ser testado; Exemplo: `yarn test --url:http://18.228.136.80:3100/` `process.argv`
 - Será necessário que este projeto faça chamadas http usando axios;
 - Realizaremos então uma chamada da api `backend-remote-test` de cada projeto, para saber quais projetos funcionaram ou não;
 - O projeto deverá testar cada requisito (explicado abaixo) e apresentar um somatório de "pontos"
@@ -34,9 +34,8 @@ O objetivo deste projeto é ser um código com casos de testes (asserts), que va
 
 ![Exemplo bem diferente 😅](https://flaviocopes.com/jest/passing-tests.png "Exemplo bem diferente 😅")
 
-- Para cada teste acima, apresentar uma linha, com um ✅ ou 🚩 para indicar se deu resultado positivo ou não
-- Apresentar no final da página o somatório de pontos totais do candidato
-
+- Para cada teste o Jest irá apresentar se "deu certo" ou não
+- Apresentar no final um console.log("Total de pontos do candidato") com o somatório de pontos totais
 
 # Repositório
 
