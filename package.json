@@ -1,0 +1,13 @@
+{
+    "name": "test-backend-appmasters",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "test": "jest"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "jest": "^27.0.6"
+    }
+}
