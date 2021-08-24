@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "compile": "yarn clean && yarn build",
     "test": "echo \"This run the test\"",
-    "start:development": "tsnd --transpile-only --ignore-watch node_modules --respawn src/server.ts"
+    "start:development": "tsnd -r dotenv/config --transpile-only --ignore-watch node_modules --respawn src/server.ts"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
