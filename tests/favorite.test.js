@@ -10,6 +10,7 @@ const axiosOptions = {
     headers: {
         'user-hash': userHash,
     },
+    timeout: 5 * 1000
 }
 
 exports.favoriteTest = (baseUrl) =>
