@@ -53,27 +53,29 @@ exports.rootTest = (baseUrl) =>
         test('GET endpoint: /:id', async () => {
             const sucessRequest = await Promise.all(
                 games.map(async (elem) => {
-                    const { data, status } = await axios.get(
-                        `${baseUrl}/${elem.appid}`,
-                    )
-                    if (data.steam_appid) {
-                        return data
+                    const response = await axios.get(`${baseUrl}/${elem.appid}`)
+                    if (response.data.steam_appid) {
+                        return response
                     }
-                    if (data[elem.appid]) {
-                        return data[elem.appid].data
+                    if (response.data[elem.appid]) {
+                        response.data[elem.appid].status = response.status
+                        return response.data[elem.appid]
                     }
                 }),
             )
-            expect(sucessRequest[0]).toHaveProperty('name')
-            expect(sucessRequest[0]).toHaveProperty('type')
-            expect(sucessRequest[0]).toHaveProperty('detailed_description')
+            expect(sucessRequest[0].status).toBe(200)
+            expect(sucessRequest[0].data).toHaveProperty('name')
+            expect(sucessRequest[0].data).toHaveProperty('type')
+            expect(sucessRequest[0].data).toHaveProperty('detailed_description')
             Counter.incrementar(10)
         })
 
         test('GET endpoint: / cache verify', async () => {
             const { duration } = await axios.get(baseUrl)
             responseTime.push(duration)
-            expect(responseTime[1] < 1000).toBe(true)
+            expect(
+                responseTime[0] > responseTime[1] || responseTime[1] < 1000,
+            ).toBe(true)
             Counter.incrementar(20)
         })
     })

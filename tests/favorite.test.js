@@ -30,7 +30,12 @@ exports.favoriteTest = (baseUrl) =>
                     'user-hash': userHash,
                 },
             })
-            expect(status === 200 || status === 204).toBe(true)
+            expect(
+                status === 200 ||
+                    status === 204 ||
+                    status === 400 ||
+                    status === 403,
+            ).toBe(true)
             Counter.incrementar(10)
         })
 
