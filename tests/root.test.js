@@ -59,17 +59,24 @@ exports.rootTest = (baseUrl) =>
                         const response = await axios.get(
                             `${baseUrl}/${elem.appid}`,
                             {
-                                timeout: 5000,
+                                timeout: 10000,
                             },
                         )
 
                         if (response.data.hasOwnProperty('type')) {
                             return response
+                        } else if (response.data[elem.appid]) {
+                            response.data[elem.appid].status = response.status
+                            return response.data[elem.appid]
                         }
                     }),
                 )
                 const sucessRequest = sucessRequestWithUndefined.filter(
-                    (notUndefined) => notUndefined !== undefined,
+                    (notUndefined) => {
+                        if (notUndefined !== undefined && notUndefined.data) {
+                            return notUndefined
+                        }
+                    },
                 )
                 expect(sucessRequest[0].status).toBe(200)
                 expect(sucessRequest[0].data).toHaveProperty('name')
