@@ -1,7 +1,7 @@
 const { rootTest, NotaRoot } = require('./root.test.js')
 const { favoriteTest, NotaFavorito } = require('./favorite.test.js')
 
-jest.setTimeout(15000)
+jest.setTimeout(30000)
 
 const argUrl = process.argv[process.argv.length - 1].slice(2)
 
