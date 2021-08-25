@@ -1,8 +1,6 @@
 const axios = require('axios')
 const { Nota } = require('./Notas.js')
 const Counter = new Nota()
-//Jest config
-jest.setTimeout(20000)
 
 //Axios interceptors
 axios.interceptors.request.use(

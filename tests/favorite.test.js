@@ -3,9 +3,6 @@ const crypto = require('crypto')
 const { Nota } = require('./Notas.js')
 const Counter = new Nota()
 
-//Jest config
-jest.setTimeout(20000)
-
 const userHash = crypto.randomBytes(20).toString('hex')
 const appid = '704000'
 
