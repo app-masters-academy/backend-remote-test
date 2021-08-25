@@ -10,7 +10,7 @@ const axiosOptions = {
     headers: {
         'user-hash': userHash,
     },
-    timeout: 5 * 1000
+    timeout: 10 * 1000,
 }
 
 exports.favoriteTest = (baseUrl) =>
@@ -39,7 +39,6 @@ exports.favoriteTest = (baseUrl) =>
 
         test('POST endpoint: /favorite with user-hash', async () => {
             const appidOnUrl = `${favoriteUrl}/${appid}`
-
             const response1 = await axios.post(
                 appidOnUrl,
                 { rating: 3 },
@@ -73,7 +72,7 @@ exports.favoriteTest = (baseUrl) =>
             Counter.incrementar(10)
         })
 
-        test('GET endpoint: /favorite', async () => {
+        test('GET endpoint: /favorite with user-hash', async () => {
             const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(status).toBe(200)
             expect(data.length).toBe(1)
@@ -97,7 +96,9 @@ exports.favoriteTest = (baseUrl) =>
                 `${favoriteUrl}/${appid}`,
                 axiosOptions,
             )
-            expect(status).toBe(200)
+            expect(status === 200 || status === 202 || status === 203).toBe(
+                true,
+            )
             Counter.incrementar(10)
         })
     })
