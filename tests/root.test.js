@@ -32,6 +32,7 @@ let games = []
 exports.rootTest = (baseUrl) =>
     describe('Testing root', () => {
         test('GET endpoint: /', async () => {
+            console.log('GET endpoint: /');
             const { data, status, duration } = await axios.get(baseUrl, {
                 timeout: 20000,
             })
@@ -45,6 +46,7 @@ exports.rootTest = (baseUrl) =>
         })
 
         test('GET endpoint: /nao-exista', async () => {
+            console.log('GET endpoint: /nao-exista');
             const { status } = await axios.get(`${baseUrl}/nao-exista`, {
                 timeout: 5000,
             })
@@ -53,6 +55,7 @@ exports.rootTest = (baseUrl) =>
         })
 
         test('GET endpoint: /:id', async () => {
+            console.log('GET endpoint: /:id');
             if (games[0].hasOwnProperty('appid')) {
                 const sucessRequestWithUndefined = await Promise.all(
                     games.map(async (elem) => {
@@ -91,6 +94,7 @@ exports.rootTest = (baseUrl) =>
         })
 
         test('GET endpoint: / cache verify', async () => {
+            console.log('GET endpoint: / cache verify');
             const { duration } = await axios.get(baseUrl, { timeout: 5000 })
             responseTime.push(duration)
             expect(

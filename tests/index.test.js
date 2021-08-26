@@ -4,12 +4,12 @@ const { favoriteTest, NotaFavorito } = require('./favorite.test.js')
 jest.setTimeout(45000)
 
 const argUrl = process.argv[process.argv.length - 1].slice(2)
-
-if (argUrl.slice(0, 3) != 'url') {
+if (argUrl.slice(0, 3) !== 'url') {
     console.log('Correct arg --> "--url=http://myUrl.com"')
     process.exit()
 }
-const baseUrl = argUrl.slice(4)
+
+const baseUrl = argUrl.slice(4).replace(/\/$/, '');
 
 describe('Testing in row', () => {
     beforeAll(() => {

@@ -17,12 +17,14 @@ exports.favoriteTest = (baseUrl) =>
     describe('Testing favorite', () => {
         const favoriteUrl = `${baseUrl}/favorite`
         test('POST endpoint: /favorite without user-hash', async () => {
+            console.log('POST endpoint: /favorite without user-hash');
             const { status } = await axios.post(favoriteUrl)
             expect(status === 400 || status === 403).toBe(true)
             Counter.incrementar(10)
         })
 
         test('GET endpoint: /favorite with user-hash before valid POST', async () => {
+            console.log('GET endpoint: /favorite with user-hash before valid POST');
             const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(data).toStrictEqual([])
             expect(status === 200 || status === 204).toBe(true)
@@ -30,6 +32,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('POST endpoint: /favorite with user-hash', async () => {
+            console.log('POST endpoint: /favorite with user-hash');
             const appidOnUrl = `${favoriteUrl}/${appid}`
             const response1 = await axios.post(
                 appidOnUrl,
@@ -53,6 +56,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite without user-hash after', async () => {
+            console.log('GET endpoint: /favorite without user-hash after');
             const { data, status } = await axios.get(favoriteUrl)
             if (status === 200 || status === 203) {
                 expect(data).toBe([])
@@ -63,6 +67,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite with user-hash after valid POST', async () => {
+            console.log('GET endpoint: /favorite with user-hash after valid POST');
             const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(status).toBe(200)
             expect(data.length).toBe(1)
@@ -82,6 +87,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('DELETE endpoint: /favorite/:appid', async () => {
+            console.log('DELETE endpoint: /favorite/:appid');
             const { status } = await axios.delete(
                 `${favoriteUrl}/${appid}`,
                 axiosOptions,
