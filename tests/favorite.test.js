@@ -22,13 +22,14 @@ exports.favoriteTest = (baseUrl) =>
             Counter.incrementar(10)
         })
 
-        test('GET endpoint: /favorite with user-hash', async () => {
+        test('GET endpoint: /favorite with user-hash before valid POST', async () => {
             const { data, status } = await axios.get(favoriteUrl, {
                 headers: {
                     'user-hash': userHash,
                 },
             })
-            expect(data === []).toBe(true)
+            console.log(data)
+            expect(data).toStrictEqual([])
             expect(status === 200 || status === 204).toBe(true)
             Counter.incrementar(10)
         })
@@ -56,7 +57,7 @@ exports.favoriteTest = (baseUrl) =>
             Counter.incrementar(10)
         })
 
-        test('GET endpoint: /favorite without user-hash', async () => {
+        test('GET endpoint: /favorite without user-hash after', async () => {
             const { data, status } = await axios.get(favoriteUrl)
             if (status === 200 || status === 203) {
                 expect(data).toBe([])
@@ -66,7 +67,7 @@ exports.favoriteTest = (baseUrl) =>
             Counter.incrementar(10)
         })
 
-        test('GET endpoint: /favorite with user-hash', async () => {
+        test('GET endpoint: /favorite with user-hash after valid POST', async () => {
             const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(status).toBe(200)
             expect(data.length).toBe(1)
