@@ -32,49 +32,66 @@ let games = []
 exports.rootTest = (baseUrl) =>
     describe('Testing root', () => {
         test('GET endpoint: /', async () => {
-            console.log("A");
-            const { data, status, duration } = await axios.get(baseUrl)
+            const { data, status, duration } = await axios.get(baseUrl, {
+                timeout: 20000,
+            })
             expect(status).toBe(200)
             expect(data.length).toBeGreaterThan(20)
             expect(data[0]).toHaveProperty('appid')
             expect(data[0]).toHaveProperty('name')
-            games = data.slice(10,5);
+            games = data.slice(0, 10)
             responseTime.push(duration)
             Counter.incrementar(10)
         })
 
         test('GET endpoint: /nao-exista', async () => {
-            console.log("B");
-            const { status } = await axios.get(`${baseUrl}/nao-exista`)
+            const { status } = await axios.get(`${baseUrl}/nao-exista`, {
+                timeout: 5000,
+            })
             expect(status).toBe(404)
             Counter.incrementar(10)
         })
 
         test('GET endpoint: /:id', async () => {
-            console.log("C");
-            const sucessRequest = await Promise.all(
-                games.map(async (elem) => {
-                    const response = await axios.get(`${baseUrl}/${elem.appid}`)
-                    if (response.data.steam_appid) {
-                        return response
-                    }
-                    if (response.data[elem.appid]) {
-                        response.data[elem.appid].status = response.status
-                        return response.data[elem.appid]
-                    }
-                }),
-            )
-            expect(sucessRequest[0].status).toBe(200)
-            expect(sucessRequest[0].data).toHaveProperty('name')
-            expect(sucessRequest[0].data).toHaveProperty('type')
-            expect(sucessRequest[0].data).toHaveProperty('detailed_description')
-            Counter.incrementar(10)
+            if (games[0].hasOwnProperty('appid')) {
+                const sucessRequestWithUndefined = await Promise.all(
+                    games.map(async (elem) => {
+                        const response = await axios.get(
+                            `${baseUrl}/${elem.appid}`,
+                            {
+                                timeout: 10000,
+                            },
+                        )
+
+                        if (response.data.hasOwnProperty('type')) {
+                            return response
+                        } else if (response.data[elem.appid]) {
+                            response.data[elem.appid].status = response.status
+                            return response.data[elem.appid]
+                        }
+                    }),
+                )
+                const sucessRequest = sucessRequestWithUndefined.filter(
+                    (notUndefined) => {
+                        if (notUndefined !== undefined && notUndefined.data) {
+                            return notUndefined
+                        }
+                    },
+                )
+                expect(sucessRequest[0].status).toBe(200)
+                expect(sucessRequest[0].data).toHaveProperty('name')
+                expect(sucessRequest[0].data).toHaveProperty('type')
+                expect(sucessRequest[0].data).toHaveProperty(
+                    'detailed_description',
+                )
+                Counter.incrementar(10)
+            } else {
+                expect(games[0]).toHaveProperty('appid')
+            }
         })
 
         test('GET endpoint: / cache verify', async () => {
-            console.log("D");
-            const { duration } = await axios.get(baseUrl);
-            console.log(duration);
+            const { duration } = await axios.get(baseUrl, { timeout: 5000 })
             responseTime.push(duration)
             expect(
                 responseTime[0] > responseTime[1] || responseTime[1] < 1000,

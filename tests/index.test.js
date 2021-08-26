@@ -22,6 +22,6 @@ describe('Testing in row', () => {
         console.log(
             'Nota final:' + (NotaRoot.consultar() + NotaFavorito.consultar()),
         )
-    });
+    })
 
 })
