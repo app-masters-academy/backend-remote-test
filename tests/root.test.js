@@ -32,23 +32,26 @@ let games = []
 exports.rootTest = (baseUrl) =>
     describe('Testing root', () => {
         test('GET endpoint: /', async () => {
+            console.log("A");
             const { data, status, duration } = await axios.get(baseUrl)
             expect(status).toBe(200)
             expect(data.length).toBeGreaterThan(20)
             expect(data[0]).toHaveProperty('appid')
             expect(data[0]).toHaveProperty('name')
-            games = data.slice(10)
+            games = data.slice(10,5);
             responseTime.push(duration)
             Counter.incrementar(10)
         })
 
         test('GET endpoint: /nao-exista', async () => {
+            console.log("B");
             const { status } = await axios.get(`${baseUrl}/nao-exista`)
             expect(status).toBe(404)
             Counter.incrementar(10)
         })
 
         test('GET endpoint: /:id', async () => {
+            console.log("C");
             const sucessRequest = await Promise.all(
                 games.map(async (elem) => {
                     const response = await axios.get(`${baseUrl}/${elem.appid}`)
@@ -69,7 +72,9 @@ exports.rootTest = (baseUrl) =>
         })
 
         test('GET endpoint: / cache verify', async () => {
-            const { duration } = await axios.get(baseUrl)
+            console.log("D");
+            const { duration } = await axios.get(baseUrl);
+            console.log(duration);
             responseTime.push(duration)
             expect(
                 responseTime[0] > responseTime[1] || responseTime[1] < 1000,

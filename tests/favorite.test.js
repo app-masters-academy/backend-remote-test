@@ -9,12 +9,15 @@ const appid = '704000'
 const axiosOptions = {
     headers: {
         'user-hash': userHash,
+        'user_hash': userHash,
+        'token': userHash,
     },
     timeout: 5 * 1000
 }
 
 exports.favoriteTest = (baseUrl) =>
     describe('Testing favorite', () => {
+        console.log("E");
         const favoriteUrl = `${baseUrl}/favorite`
         test('POST endpoint: /favorite without user-hash', async () => {
             const { status } = await axios.post(favoriteUrl)
@@ -23,9 +26,12 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite with user-hash', async () => {
+            console.log("F");
             const { status } = await axios.get(favoriteUrl, {
                 headers: {
                     'user-hash': userHash,
+                    'user_hash': userHash,
+                    'token': userHash,
                 },
             })
             expect(
@@ -38,6 +44,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('POST endpoint: /favorite with user-hash', async () => {
+            console.log("G");
             const appidOnUrl = `${favoriteUrl}/${appid}`
 
             const response1 = await axios.post(
@@ -62,6 +69,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite without user-hash', async () => {
+            console.log("H");
             const { data, status } = await axios.get(favoriteUrl)
             expect(!data.length || data === []).toBe(true)
             expect(
@@ -74,6 +82,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite', async () => {
+            console.log("I");
             const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(status).toBe(200)
             expect(data.length).toBe(1)
@@ -93,6 +102,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('DELETE endpoint: /favorite/:appid', async () => {
+            console.log("J");
             const { status } = await axios.delete(
                 `${favoriteUrl}/${appid}`,
                 axiosOptions,

@@ -4,7 +4,7 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "test": "jest tests/index.test.js"
+        "test": "jest tests/index.test.js --detectOpenHandles"
     },
     "dependencies": {
         "axios": "^0.21.1",

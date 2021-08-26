@@ -1,7 +1,7 @@
 const { rootTest, NotaRoot } = require('./root.test.js')
 const { favoriteTest, NotaFavorito } = require('./favorite.test.js')
 
-jest.setTimeout(15000)
+jest.setTimeout(45000)
 
 const argUrl = process.argv[process.argv.length - 1].slice(2)
 
@@ -18,8 +18,10 @@ describe('Testing in row', () => {
     rootTest(baseUrl)
     favoriteTest(baseUrl)
     afterAll(() => {
+        console.log(`Testing: ${baseUrl}`)
         console.log(
             'Nota final:' + (NotaRoot.consultar() + NotaFavorito.consultar()),
         )
-    })
+    });
+
 })
