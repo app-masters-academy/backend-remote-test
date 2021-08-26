@@ -23,12 +23,7 @@ exports.favoriteTest = (baseUrl) =>
         })
 
         test('GET endpoint: /favorite with user-hash before valid POST', async () => {
-            const { data, status } = await axios.get(favoriteUrl, {
-                headers: {
-                    'user-hash': userHash,
-                },
-            })
-            console.log(data)
+            const { data, status } = await axios.get(favoriteUrl, axiosOptions)
             expect(data).toStrictEqual([])
             expect(status === 200 || status === 204).toBe(true)
             Counter.incrementar(10)
